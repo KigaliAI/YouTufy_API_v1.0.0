@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTufy Subscriptions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+  <header>
+    <h1>📺 YouTufy Subscriptions</h1>
+    <p class="tagline" id="userEmail">Welcome, loading...</p>
+  </header>
+
+  <main class="container">
+    <div class="grid" id="subscriptionsContainer">
+      <p>📡 Loading your subscriptions...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      © 2025 YouTufy |
+      <a href="https://api.youtufy.com/auth/privacy.html">Privacy</a> |
+      <a href="https://api.youtufy.com/auth/terms.html">Terms</a>
+    </p>
+  </footer>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
+    if (!token) {
+      document.getElementById("subscriptionsContainer").innerHTML =
+        "<p>❌ No token provided. Please log in again.</p>";
+    } else {
+      fetch("https://api.youtufy.com/youtube/subscriptions?token=" + token)
+        .then(res => res.text())
+        .then(html => {
+          document.documentElement.innerHTML = html;
+        })
+        .catch(err => {
+          console.error("⚠️ Failed to load subscriptions:", err);
+          document.getElementById("subscriptionsContainer").innerHTML =
+            "<p>❌ Error loading subscriptions. Please try again.</p>";
+        });
+    }
+  </script>
+</body>
+</html>
