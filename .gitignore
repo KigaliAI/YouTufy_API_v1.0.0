@@ -72,3 +72,6 @@ npm-debug.log
 *.key
 *.crt
 *.pub
+
+node_modules/
+.DS_Store
