@@ -9,8 +9,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
+    # ports:
+      # - "5432:5432"       <-- Good: Avoid exposing DB in production
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -23,11 +23,11 @@ services:
     depends_on:
       - youtufy-db
     ports:
-      - "8080:8080"
+      - "8080:8080"          # <-- NGINX will reverse proxy this
     env_file:
       - .env
     volumes:
-      - .:/app
+      - .:/app               # <-- Consider avoiding in prod (see below)
     networks:
       - youtufy-net
 
@@ -37,4 +37,3 @@ volumes:
 networks:
   youtufy-net:
     driver: bridge
-

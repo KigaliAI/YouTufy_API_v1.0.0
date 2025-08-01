@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
-<head><title>Verify Token</title><link rel="stylesheet" href="/static/style.css"></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reset Your Password</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
 <body>
-  <header><h1>Set New Password</h1></header>
+  <header><h1>🔐 Reset Password</h1></header>
   <main class="container">
-    <form action="/auth/verify-token" method="post">
-      <input type="hidden" name="token" value="{{ token }}" />
-      <input type="password" name="new_password" placeholder="New password" required />
-      <button class="btn" type="submit">Reset Password</button>
+    <form method="post" action="/auth/verify-token.html">
+      <input type="hidden" name="token" value="{{ request.query_params['token'] }}">
+      <label>New Password:</label><br>
+      <input type="password" name="new_password" required><br><br>
+      <button class="btn" type="submit">🔁 Reset Password</button>
     </form>
   </main>
 </body>
 </html>
+

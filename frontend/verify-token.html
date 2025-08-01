@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Set New Password – YouTufy</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header><h1>🔐 Set Your New Password</h1></header>
+  <main class="container">
+    <form id="set-password-form">
+      <input type="password" id="new-password" placeholder="New Password" required><br><br>
+      <button type="submit" class="btn">Update Password</button>
+    </form>
+    <p id="result-msg"></p>
+  </main>
+  <script>
+    const token = new URLSearchParams(window.location.search).get("token");
+
+    document.getElementById('set-password-form').onsubmit = async e => {
+      e.preventDefault();
+      const password = document.getElementById('new-password').value;
+      const res = await fetch('https://api.youtufy.com/auth/set-password', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ token, password })
+      });
+      const data = await res.json();
+      document.getElementById('result-msg').innerText = data.message || data.detail;
+    };
+  </script>
+</body>
+</html>
