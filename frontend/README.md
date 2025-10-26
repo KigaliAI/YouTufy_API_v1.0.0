@@ -1,4 +1,4 @@
-## YouTufy – Your Personalized YouTube Dashboard (v1.0.0)
+## YouTufy – Your personalized YouTube dashboard (v1.0.0)
 
 **YouTufy** is a full-stack web application that connects to your YouTube account via Google OAuth and visualizes your channel subscriptions, statistics, and latest video uploads — all within a clean, privacy-conscious dashboard.
 
@@ -63,7 +63,7 @@ youtufy_api/
 
 ```bash
 # Clone repo
-git clone https://github.com/<your-username>/YouTufy_API.git
+git clone https://github.com/KigaliAI/YouTufy_API.git
 cd YouTufy_API
 
 # Create .env and .env.production files

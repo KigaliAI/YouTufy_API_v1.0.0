@@ -44,4 +44,5 @@ python-multipart>=0.0.6
 
 bcrypt==3.2.2
 
-
+# For CORS support:
+starlette

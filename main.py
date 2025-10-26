@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from api.routes import reset
 
@@ -38,6 +39,15 @@ app.add_middleware(
     same_site="Lax",
     https_only=False  # Set to True if NGINX handles HTTPS termination
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://www.youtufy.com"],  # frontend domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+allow_origins=["*"]  
 
 # Allow HEAD requests
 @app.middleware("http")
