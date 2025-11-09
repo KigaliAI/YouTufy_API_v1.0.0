@@ -5,9 +5,9 @@
   --text-muted: #8aa1b1;
   --accent-magenta: darkmagenta;
 
-  --btn-google: #13b981;   /* green like kiosk "In" */
-  --btn-login: #38bdf8;    /* sky blue */
-  --btn-register: #facc15; /* yellow */
+  --btn-google: #13b981;
+  --btn-login: #38bdf8;
+  --btn-register: #facc15;
   --focus-ring: #60a5fa;
   --shadow-card: 0 16px 40px #0008;
   --radius-lg: 16px;
@@ -37,7 +37,7 @@ body {
   align-items: flex-start;
 }
 
-/* Layout wrapper to control max-width and vertical spacing */
+/* Global layout wrapper */
 main {
   width: 100%;
   max-width: 600px;
@@ -47,7 +47,7 @@ main {
   min-height: 100vh;
 }
 
-/* === HERO CARD (top 3/4 visually) === */
+/* === HERO CARD === */
 header {
   background: var(--card);
   border-radius: var(--radius-lg);
@@ -76,16 +76,16 @@ h1 {
   margin: 0 0 8px 0;
 }
 
-/* Tagline (magenta, slightly larger than normal text) */
+/* Tagline (magenta, text) */
 .tagline {
   margin: 0;
   color: var(--accent-magenta);
-  font-size: 1.125rem; /* ~18px */
+  font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.4;
 }
 
-/* After header, the content section (Why YouTufy etc.) */
+/* Content section */
 .container {
   background: var(--card);
   border-radius: var(--radius-lg);
@@ -96,23 +96,21 @@ h1 {
   color: var(--text-main);
 }
 
-/* Section heading "Why YouTufy?" - white */
+/* Section heading */
 h2 {
-  font-size: 1.25rem; /* ~20px */
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-main);
   margin: 0 0 12px 0;
 }
 
-/* Explanatory paragraphs - magenta */
 .container p {
-  font-size: 1.125rem; /* bump text +1 */
+  font-size: 1.125rem;
   color: var(--accent-magenta);
   margin: 0 0 12px 0;
   line-height: 1.5;
 }
 
-/* Code styling in OAuth line */
 .container code {
   background: rgba(255,255,255,0.08);
   padding: 2px 6px;
@@ -121,7 +119,7 @@ h2 {
   font-size: 0.95em;
 }
 
-/* === BUTTON GROUP (Continue with Google / Login / Register) === */
+/* === BUTTON GROUP === */
 .btn-container {
   display: grid;
   gap: 12px;
@@ -129,54 +127,40 @@ h2 {
   margin-bottom: 24px;
 }
 
-/* Base button style mimics kiosk buttons */
 .btn {
   display: block;
   width: 100%;
   text-align: center;
-  text-decoration: none;
   font-weight: 700;
-  font-size: 1.125rem; /* ~18px */
-  line-height: 1.4;
+  font-size: 1.125rem;
   padding: 14px 16px;
   border-radius: var(--radius-lg);
   box-shadow: 0 12px 30px #0007;
   transition: transform .04s ease;
   cursor: pointer;
   border: 0;
-  -webkit-tap-highlight-color: transparent;
   color: #fff;
+  text-decoration: none;
 }
 
 .btn:active {
   transform: translateY(1px);
 }
 
-/* Individual button color themes */
-.btn.google {
-  background: var(--btn-google); /* green */
-  color: #fff;
-}
-
-.btn.login {
-  background: var(--btn-login); /* blue */
-  color: #fff;
-}
-
+.btn.google { background: var(--btn-google); }
+.btn.login { background: var(--btn-login); }
 .btn.register {
-  background: var(--btn-register); /* yellow */
+  background: var(--btn-register);
   color: #000;
-  font-weight: 600;
 }
 
-/* Slight hover/focus hint for non-touch screens */
 .btn:hover,
 .btn:focus {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* === FOOTER BAR (bottom magenta strip, last ~1/4 visually) === */
+/* === FOOTER === */
 footer {
   background: var(--accent-magenta);
   border-radius: var(--radius-lg);
@@ -185,19 +169,12 @@ footer {
   text-align: center;
   padding: 16px;
   font-size: 0.95rem;
-  line-height: 1.5;
   margin-top: 32px;
-}
-
-footer p {
-  margin: 0;
-  color: #fff;
 }
 
 footer a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
   margin: 0 0.5rem;
 }
 
@@ -206,16 +183,50 @@ footer a:focus {
   text-decoration: underline;
 }
 
-/* === RESPONSIVE: arrange buttons in 2 columns on wider screens === */
+/* === RESPONSIVE BTN GRID === */
 @media (min-width: 480px) {
   .btn-container {
     grid-template-columns: 1fr 1fr;
   }
-
-  /* first two side by side, register full width below */
   .btn.google { grid-column: 1 / 2; }
   .btn.login  { grid-column: 2 / 3; }
-  .btn.register {
-    grid-column: 1 / -1;
-  }
+  .btn.register { grid-column: 1 / -1; }
+}
+
+
+/* =================================================================== */
+/* ===  YOUTUBE SUBSCRIPTIONS CARDS (📺 NEW STYLING)  ================= */
+/* =================================================================== */
+
+.card {
+  background: rgba(16, 19, 26, 0.85); /* translucent dark */
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.card ul {
+  padding: 0;
+  list-style: none;
+}
+
+.card ul li {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d3d3d3;
+  opacity: 0.95;
 }
