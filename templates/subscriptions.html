@@ -5,98 +5,62 @@
   <title>YouTufy Subscriptions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/static/style.css" />
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: #222;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .container {
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card img {
-      display: block;
-      margin: auto;
-      border-radius: 4px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #1a73e8;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-  </style>
 </head>
 
 <body>
-  <header>
-    <h1>📺 YouTufy Subscriptions</h1>
-    <p>Welcome, {{ user_email }}</p>
-  </header>
+  <main class="yt-grid">
+    <header class="yt-header">
+      <h1>📺 YouTufy Subscriptions</h1>
+      <p class="tagline">Welcome, {{ user_email }}</p>
+    </header>
 
-  <main class="container">
-    {% if subscriptions %}
-      <div class="grid">
-        {% for sub in subscriptions %}
-          <div class="card">
-            <h3>{{ sub.snippet.title }}</h3>
+    <section class="yt-main yt-main-subscriptions">
+      <div class="container">
+        {% if subscriptions %}
+          <div class="grid">
+            {% for sub in subscriptions %}
+              <article class="card">
+                <h3>{{ sub.snippet.title }}</h3>
 
-            <img src="{{ sub.snippet.thumbnails.default.url }}"
-                 alt="{{ sub.snippet.title }}"
-                 width="120" height="90" />
+                <img
+                  src="{{ sub.snippet.thumbnails.default.url }}"
+                  alt="{{ sub.snippet.title }}"
+                  width="120"
+                  height="90"
+                />
 
-            <ul>
-              <li>👁️ Views: {{ sub.statistics.viewCount }}</li>
-              <li>👥 Subscribers: {{ sub.statistics.subscriberCount }}</li>
-              <li>🎬 Videos: {{ sub.statistics.videoCount }}</li>
+                <ul>
+                  <li>👁️ Views: {{ sub.statistics.viewCount }}</li>
+                  <li>👥 Subscribers: {{ sub.statistics.subscriberCount }}</li>
+                  <li>🎬 Videos: {{ sub.statistics.videoCount }}</li>
 
-              {% if sub.latestVideoDate %}
-                <li>📅 Last Upload: {{ sub.latestVideoDate[:10] }}</li>
-              {% endif %}
-            </ul>
+                  {% if sub.latestVideoDate %}
+                    <li>📅 Last Upload: {{ sub.latestVideoDate[:10] }}</li>
+                  {% endif %}
+                </ul>
 
-            <a class="btn" href="{{ sub.channelUrl }}" target="_blank">
-              Visit Channel
-            </a>
+                <a class="btn btn-login" href="{{ sub.channelUrl }}" target="_blank" rel="noopener noreferrer">
+                  Visit Channel
+                </a>
+              </article>
+            {% endfor %}
           </div>
-        {% endfor %}
+        {% else %}
+          <div class="hero-card">
+            <p class="why-desc">No subscriptions found.</p>
+          </div>
+        {% endif %}
       </div>
-    {% else %}
-      <p>No subscriptions found.</p>
-    {% endif %}
-  </main>
+    </section>
 
-  <footer>
-    <p>
-      © 2025 YouTufy |
-      <a href="/auth/privacy.html">Privacy</a> |
-      <a href="/auth/terms.html">Terms</a> |
-      <a href="https://www.youtufy.com" target="_blank">Homepage</a>
-    </p>
-  </footer>
+    <footer class="yt-footer">
+      <p>
+        © 2025 YouTufy |
+        <a href="/auth/privacy.html">Privacy</a> |
+        <a href="/auth/terms.html">Terms</a> |
+        <a href="https://www.youtufy.com" target="_blank" rel="noopener noreferrer">Homepage</a>
+      </p>
+    </footer>
+  </main>
 </body>
 </html>

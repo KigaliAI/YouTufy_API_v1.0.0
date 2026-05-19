@@ -21,7 +21,9 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
+  width: 100%;
   min-height: 100%;
   margin: 0;
   padding: 0;
@@ -32,28 +34,28 @@ body {
   color: var(--text-main);
   font-family: var(--font-stack);
   line-height: 1.45;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
 }
 
-/* Global layout wrapper */
-main {
+/* ==========================================================
+   FULL-VIEWPORT GRID LAYOUT
+========================================================== */
+.yt-grid {
   width: 100%;
-  max-width: 600px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  height: 100vh;
+  padding: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--bg);
+  overflow: hidden;
 }
 
-/* === HERO CARD === */
-header {
-  background: var(--card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 24px 24px 32px;
-  text-align: left;
+/* ==========================================================
+   HEADER
+========================================================== */
+.yt-header {
+  padding: 1.5rem 1.5rem 1rem;
+  text-align: center;
   color: var(--text-main);
 }
 
@@ -65,19 +67,21 @@ header {
   object-fit: cover;
   box-shadow: 0 8px 20px #0006;
   display: block;
-  margin-bottom: 12px;
+  margin: 0 auto 12px;
 }
 
-/* Main heading (white) */
-h1 {
+/* Main heading */
+h1,
+.hero-title {
   color: var(--text-main);
   font-size: clamp(24px, 4vw, 32px);
   font-weight: 600;
   margin: 0 0 8px 0;
 }
 
-/* Tagline (magenta, text) */
-.tagline {
+/* Tagline */
+.tagline,
+.hero-tagline {
   margin: 0;
   color: var(--accent-magenta);
   font-size: 1.125rem;
@@ -85,33 +89,74 @@ h1 {
   line-height: 1.4;
 }
 
-/* Content section */
-.container {
+/* ==========================================================
+   MAIN CONTENT AREA
+========================================================== */
+.yt-main {
+  min-height: 0;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Subscriptions page content should start from top */
+.yt-main-subscriptions {
+  align-items: flex-start;
+}
+
+/* ==========================================================
+   HERO CARD / MAIN CARD
+========================================================== */
+.hero-card,
+.container-card {
+  width: 100%;
+  max-width: 600px;
   background: var(--card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   padding: 24px 24px 32px;
-  margin-top: 24px;
+  text-align: left;
+  color: var(--text-main);
+}
+
+/* Existing .container support */
+.container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* For older pages where .container is the card */
+.container.is-card {
+  max-width: 600px;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 24px 24px 32px;
   text-align: left;
   color: var(--text-main);
 }
 
 /* Section heading */
-h2 {
+h2,
+.why-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-main);
   margin: 0 0 12px 0;
 }
 
-.container p {
+.container p,
+.why-desc {
   font-size: 1.125rem;
   color: var(--accent-magenta);
   margin: 0 0 12px 0;
   line-height: 1.5;
 }
 
-.container code {
+.container code,
+.why-desc code {
   background: rgba(255,255,255,0.08);
   padding: 2px 6px;
   border-radius: 6px;
@@ -119,12 +164,14 @@ h2 {
   font-size: 0.95em;
 }
 
-/* === BUTTON GROUP === */
+/* ==========================================================
+   BUTTON GROUP
+========================================================== */
+.cta-group,
 .btn-container {
   display: grid;
   gap: 12px;
   margin-top: 24px;
-  margin-bottom: 24px;
 }
 
 .btn {
@@ -147,59 +194,70 @@ h2 {
   transform: translateY(1px);
 }
 
-.btn.google { background: var(--btn-google); }
-.btn.login { background: var(--btn-login); }
-.btn.register {
-  background: var(--btn-register);
-  color: #000;
-}
-
 .btn:hover,
 .btn:focus {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* === FOOTER === */
-footer {
-  background: var(--accent-magenta);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+/* New class names */
+.btn-google {
+  background: var(--btn-google);
   color: #fff;
-  text-align: center;
-  padding: 16px;
-  font-size: 0.95rem;
-  margin-top: 32px;
 }
 
-footer a {
+.btn-login {
+  background: var(--btn-login);
   color: #fff;
-  text-decoration: none;
-  margin: 0 0.5rem;
 }
 
-footer a:hover,
-footer a:focus {
-  text-decoration: underline;
+.btn-register {
+  background: var(--btn-register);
+  color: #000;
 }
 
-/* === RESPONSIVE BTN GRID === */
-@media (min-width: 480px) {
-  .btn-container {
-    grid-template-columns: 1fr 1fr;
+/* Older class names */
+.btn.google {
+  background: var(--btn-google);
+  color: #fff;
+}
+
+.btn.login {
+  background: var(--btn-login);
+  color: #fff;
+}
+
+.btn.register {
+  background: var(--btn-register);
+  color: #000;
+}
+
+/* ==========================================================
+   SUBSCRIPTIONS GRID
+========================================================== */
+.grid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .btn.google { grid-column: 1 / 2; }
-  .btn.login  { grid-column: 2 / 3; }
-  .btn.register { grid-column: 1 / -1; }
 }
 
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 
-/* =================================================================== */
-/* ===  YOUTUBE SUBSCRIPTIONS CARDS (📺 NEW STYLING)  ================= */
-/* =================================================================== */
-
+/* ==========================================================
+   YOUTUBE SUBSCRIPTIONS CARDS
+========================================================== */
 .card {
-  background: rgba(16, 19, 26, 0.85); /* translucent dark */
+  background: rgba(16, 19, 26, 0.85);
   backdrop-filter: blur(4px);
   border-radius: 12px;
   padding: 1.2rem;
@@ -216,11 +274,12 @@ footer a:focus {
   font-size: 1.25rem;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 0.6rem;
+  margin: 0 0 0.6rem;
 }
 
 .card ul {
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
@@ -229,4 +288,81 @@ footer a:focus {
   font-weight: 600;
   color: #d3d3d3;
   opacity: 0.95;
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+.yt-footer {
+  background: var(--accent-magenta);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  font-size: 0.95rem;
+  margin: 16px;
+}
+
+.yt-footer p {
+  margin: 0;
+}
+
+.yt-footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.yt-footer a:hover,
+.yt-footer a:focus {
+  text-decoration: underline;
+}
+
+/* Older footer fallback */
+footer:not(.yt-footer) {
+  background: var(--accent-magenta);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  font-size: 0.95rem;
+  margin-top: 32px;
+}
+
+footer:not(.yt-footer) a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+footer:not(.yt-footer) a:hover,
+footer:not(.yt-footer) a:focus {
+  text-decoration: underline;
+}
+
+/* ==========================================================
+   RESPONSIVE BUTTON GRID
+========================================================== */
+@media (min-width: 480px) {
+  .cta-group,
+  .btn-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .btn-google,
+  .btn.google {
+    grid-column: 1 / 2;
+  }
+
+  .btn-login,
+  .btn.login {
+    grid-column: 2 / 3;
+  }
+
+  .btn-register,
+  .btn.register {
+    grid-column: 1 / -1;
+  }
 }
