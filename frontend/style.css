@@ -1,174 +1,90 @@
-:root {
-  --bg: #0b0f14;
-  --card: #111826;
-  --muted: #8aa1b1;
-  --text: #eaf1f6;
-  --focus: #60a5fa;
-  --magenta: darkmagenta;
-
-  --btn-google: #13b981;   /* green like "In" */
-  --btn-login: #38bdf8;    /* sky blue */
-  --btn-register: #facc15; /* yellow-ish */
-  --shadow: 0 16px 40px #0008;
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --font-stack: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-/* === Page base === */
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
+/* ============================================
+   FULL-VIEWPORT APP GRID
+============================================ */
 .yt-body {
-  min-height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.45 var(--font-stack);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-/* Shell constrains width similarly to kiosk container */
-.yt-shell {
-  width: 100%;
-  max-width: 600px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
 }
 
-/* === Card section (¾ top visually) === */
+.yt-grid {
+  min-height: 100vh;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* ============================================
+   HEADER
+============================================ */
+.yt-header {
+  text-align: center;
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+/* ============================================
+   MAIN AREA
+============================================ */
+.yt-main {
+  min-height: 0;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Subscriptions page should start content near top */
+.yt-main-subscriptions {
+  align-items: flex-start;
+}
+
+/* ============================================
+   HERO CARD
+============================================ */
 .hero-card {
+  width: 100%;
+  max-width: 600px;
   background: var(--card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 24px 24px 32px;
-  flex-grow: 1; /* fill most of the screen */
   display: flex;
   flex-direction: column;
-}
-
-/* Header area inside hero */
-.hero-head {
   text-align: left;
-  margin-bottom: 24px;
-  color: var(--text);
 }
 
-.logo {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-md);
-  object-fit: cover;
-  box-shadow: 0 8px 20px #0006;
-  display: block;
-  margin-bottom: 12px;
-}
-
-/* h1 white, bigger */
-.hero-title {
-  margin: 0 0 8px 0;
-  font-size: clamp(24px, 4vw, 32px);
-  font-weight: 600;
-  color: var(--text); /* white-ish */
-}
-
-/* tagline magenta, bigger by +1 step */
-.hero-tagline {
-  margin: 0;
-  color: var(--magenta);
-  font-size: 1.125rem; /* 18px-ish */
-  font-weight: 500;
-}
-
-/* Content block below header */
-.hero-content {
-  color: var(--text);
-}
-
-/* "Why YouTufy?" heading (white) */
-.why-title {
-  margin: 0 0 12px 0;
-  font-size: 1.25rem; /* 20px */
-  font-weight: 600;
-  color: var(--text); /* white-ish */
-}
-
-/* Descriptive paragraphs (magenta, larger) */
-.why-desc {
-  margin: 0 0 12px 0;
-  color: var(--magenta);
-  font-size: 1.125rem; /* bump +1 */
-  line-height: 1.5;
-}
-
-.why-desc code {
-  background: rgba(255,255,255,0.08);
-  padding: 2px 6px;
-  border-radius: 6px;
-  color: var(--text);
-  font-size: 0.95em;
-}
-
-/* CTA buttons block */
-.cta-group {
-  margin-top: 24px;
-  display: grid;
-  gap: 12px;
-}
-
-/* Button base style – matches kiosk big rounded tap targets */
-.btn {
-  display: block;
+/* ============================================
+   SUBSCRIPTIONS CONTAINER
+============================================ */
+.container {
   width: 100%;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.4;
-  color: #000;
-  padding: 14px 16px;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 12px 30px #0007;
-  transition: transform .04s ease;
-  border: 0;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  max-width: 1200px;
 }
 
-.btn:active {
-  transform: translateY(1px);
+.grid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
 }
 
-/* Individual button colors */
-.btn-google {
-  background: var(--btn-google);     /* green like kiosk "In" */
-  color: #fff;
+/* Optional responsive card grid for subscriptions */
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
-.btn-login {
-  background: var(--btn-login);      /* sky blue */
-  color: #fff;
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
-.btn-register {
-  background: var(--btn-register);   /* yellow */
-  color: #000;
-  font-weight: 600;
-}
-
-/* === Footer bar (¼ bottom visually) === */
+/* ============================================
+   FOOTER
+============================================ */
 .yt-footer {
-  margin-top: 32px;
   background: var(--magenta);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
@@ -177,33 +93,9 @@ html, body {
   padding: 16px;
   font-size: 0.95rem;
   line-height: 1.5;
+  margin: 16px;
 }
 
 .yt-footer p {
   margin: 0;
-}
-
-.yt-footer a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.yt-footer a:hover,
-.yt-footer a:focus {
-  text-decoration: underline;
-}
-
-/* Responsive nudges */
-@media (min-width: 480px) {
-  .cta-group {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  /* two buttons top row, register full-width bottom row */
-  .btn-google { grid-column: 1 / 2; }
-  .btn-login  { grid-column: 2 / 3; }
-  .btn-register {
-    grid-column: 1 / -1;
-  }
 }
