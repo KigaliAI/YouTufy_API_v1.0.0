@@ -7,30 +7,25 @@
   <link rel="stylesheet" href="/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
-
 <body>
-  <main class="yt-grid">
-    <header class="yt-header">
-      <h1>📺 YouTufy Subscriptions</h1>
-      <p class="tagline" id="userEmail">Welcome, loading...</p>
-    </header>
+  <header>
+    <h1>📺 YouTufy Subscriptions</h1>
+    <p class="tagline" id="userEmail">Welcome, loading...</p>
+  </header>
 
-    <section class="yt-main yt-main-subscriptions">
-      <div class="container">
-        <div class="grid" id="subscriptionsContainer">
-          <p>📡 Loading your subscriptions...</p>
-        </div>
-      </div>
-    </section>
-
-    <footer class="yt-footer">
-      <p>
-        © 2025 YouTufy |
-        <a href="https://api.youtufy.com/auth/privacy.html">Privacy</a> |
-        <a href="https://api.youtufy.com/auth/terms.html">Terms</a>
-      </p>
-    </footer>
+  <main class="container">
+    <div class="grid" id="subscriptionsContainer">
+      <p>📡 Loading your subscriptions...</p>
+    </div>
   </main>
+
+  <footer>
+    <p>
+      © 2025 YouTufy |
+      <a href="https://api.youtufy.com/auth/privacy.html">Privacy</a> |
+      <a href="https://api.youtufy.com/auth/terms.html">Terms</a>
+    </p>
+  </footer>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
