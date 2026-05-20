@@ -5,7 +5,6 @@
   <title>YouTufy Subscriptions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/static/style.css" />
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,32 +12,48 @@
       margin: 0;
       padding: 0;
     }
-
     header {
       background: #222;
       color: #fff;
       padding: 1rem;
       text-align: center;
     }
-
     .container {
       padding: 2rem;
       max-width: 1200px;
       margin: auto;
     }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
     }
-
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 1rem;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
+    }
+    .card h3 {
+      margin: 0.5rem 0;
+    }
     .card img {
       display: block;
       margin: auto;
       border-radius: 4px;
     }
-
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .card ul li {
+      margin-bottom: 0.5rem;
+    }
     .btn {
       display: inline-block;
       background: #1a73e8;
@@ -46,12 +61,18 @@
       padding: 0.5rem 1rem;
       text-decoration: none;
       border-radius: 4px;
-      margin-top: 1rem;
-      font-weight: bold;
+    }
+    .btn:hover {
+      background: #155ab6;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>📺 YouTufy Subscriptions</h1>
@@ -64,24 +85,16 @@
         {% for sub in subscriptions %}
           <div class="card">
             <h3>{{ sub.snippet.title }}</h3>
-
-            <img src="{{ sub.snippet.thumbnails.default.url }}"
-                 alt="{{ sub.snippet.title }}"
-                 width="120" height="90" />
-
+            <img src="{{ sub.snippet.thumbnails.default.url }}" alt="Thumbnail for {{ sub.snippet.title }}" width="120" height="90" />
             <ul>
               <li>👁️ Views: {{ sub.statistics.viewCount }}</li>
               <li>👥 Subscribers: {{ sub.statistics.subscriberCount }}</li>
               <li>🎬 Videos: {{ sub.statistics.videoCount }}</li>
-
               {% if sub.latestVideoDate %}
                 <li>📅 Last Upload: {{ sub.latestVideoDate[:10] }}</li>
               {% endif %}
             </ul>
-
-            <a class="btn" href="{{ sub.channelUrl }}" target="_blank">
-              Visit Channel
-            </a>
+            <a class="btn" href="{{ sub.channelUrl }}" target="_blank">Visit Channel</a>
           </div>
         {% endfor %}
       </div>
