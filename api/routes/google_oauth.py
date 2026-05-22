@@ -1,5 +1,4 @@
 #api/routes/google_oauth.py
-#api/routes/google_oauth.py
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
 from backend.oauth import (
@@ -18,17 +17,18 @@ router = APIRouter()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 JWT_EXP_SECONDS = int(os.getenv("JWT_EXP_SECONDS", "3600"))
-FRONTEND_REDIRECT = os.getenv("FRONTEND_REDIRECT_URL", "/youtube/subscriptions")
+FRONTEND_REDIRECT = os.getenv("FRONTEND_REDIRECT_URL", "https://api.youtufy.com/youtube/subscriptions")
 
 @router.get("/login")
 def google_login():
     return RedirectResponse(get_google_auth_url(), status_code=302)
 
 @router.get("/callback")
-def google_callback(request: Request, code: str):
+async def google_callback(request: Request, code: str):
     try:
         print("🔐 Received code from Google:", code)
 
+        # 1. Exchange code for tokens
         token_data = exchange_code_for_token(code)
         access_token = token_data.get("access_token")
         refresh_token = token_data.get("refresh_token")
@@ -38,12 +38,14 @@ def google_callback(request: Request, code: str):
             print("❌ No access token received")
             raise HTTPException(status_code=400, detail="Access token not found")
 
+        # 2. Get user info from Google
         user = get_user_info(access_token)
         email = user.get("email")
         if not email:
             print("❌ Email not found in user profile:", user)
             raise HTTPException(status_code=400, detail="Email not found in user info")
 
+        # 3. Store or retrieve refresh token
         if refresh_token:
             store_refresh_token(email, refresh_token)
         else:
@@ -52,14 +54,14 @@ def google_callback(request: Request, code: str):
                 print("❌ No refresh token available for user:", email)
                 raise HTTPException(status_code=400, detail="Missing refresh token for user")
 
-        # Store Google-specific tokens in session
+        # 4. Store tokens in session
         request.session["user_email"] = email
         request.session["google_access_token"] = access_token
         request.session["google_refresh_token"] = refresh_token
         if id_token:
-            request.session["google_id_token"] = id_token  # Optional enhancement
+            request.session["google_id_token"] = id_token
 
-        # Issue your app’s stateless JWT
+        # 5. Issue JWT
         payload = {
             "sub": email,
             "exp": int(time.time()) + JWT_EXP_SECONDS
@@ -67,6 +69,7 @@ def google_callback(request: Request, code: str):
         jwt_token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
         print(f"✅ Login successful for {email}, redirecting with JWT")
 
+        # 6. Redirect to frontend
         return RedirectResponse(url=f"{FRONTEND_REDIRECT}?token={jwt_token}", status_code=302)
 
     except Exception as e:

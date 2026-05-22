@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore old project copies
+YouTufy_API_v1.0.0/
+youtufy_api_env/
+
+# Ignore large files
+*.csv
+*.pptx
+*.sql
+*.log
