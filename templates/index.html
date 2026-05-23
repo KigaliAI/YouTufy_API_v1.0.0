@@ -5,43 +5,106 @@
   <title>YouTufy – YouTube Subscriptions System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Link to FastAPI static CSS -->
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet"
+  />
 </head>
+
 <body>
-  <header>
-    <img src="/static/logo.jpeg" alt="YouTufy Logo" class="logo" onerror="this.style.display='none';" />
-    <h1>Welcome to YouTufy</h1>
-    <p class="tagline">Your YouTube Subscriptions System</p>
-  </header>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <img
+          src="/static/logo.jpeg"
+          alt="YouTufy Logo"
+          class="logo-img"
+          onerror="this.style.display='none';"
+        />
+        <span class="logo-text">YouTufy</span>
+      </div>
 
-  <main class="container">
-    <h2>Why YouTufy?</h2>
-    <p>
-      YouTufy is a subscription management tool designed to help you keep track of your favorite YouTube channels.
-      By securely accessing your subscriptions, YouTufy provides valuable insights such as subscriber counts, video uploads,
-      and engagement metrics—all without storing your private data.
-    </p>
+      <div class="badge-area">
+        <span class="badge">
+          🔒 OAuth-protected · <code>youtube.readonly</code> scope only
+        </span>
+      </div>
+    </header>
 
-    <p>🔒 Your data is protected · Access granted via Google OAuth (<code>youtube.readonly</code>)</p>
-    <p>🛡️ We request <code>youtube.readonly</code> permission to access your subscriptions securely.</p>
+    <main class="main-content">
+      <section class="hero-section">
+        <p class="tagline">YOUR SUBSCRIPTIONS, ORGANISED</p>
 
-    <p style="font-size:1.1rem; font-weight:bold; color:magenta;">✅ <strong>Choose one of the login methods:</strong></p>
+        <h1 class="main-heading">
+          Know your <br />
+          <span class="highlight-text">channel universe.</span>
+        </h1>
 
-    <div class="btn-container">
-      <a class="btn" href="/oauth/login">🔐 Continue with Google</a>
-      <a class="btn" href="/auth/login-form.html">✉️ Existing Account Login</a>
-      <a class="btn" href="/auth/register-form.html">📝 Create Free Account</a>
-    </div>
-  </main>
+        <div class="hero-description-block">
+          <h2>Why YouTufy?</h2>
+          <p>
+            YouTufy is an advanced online tool designed to show you your entire
+            YouTube subscriptions network you follow — consolidating your media
+            diet into one beautifully organized, clean master view.
+          </p>
+        </div>
+      </section>
 
-  <footer>
-    <p>
-      © 2025 YouTufy |
-      <a href="/auth/privacy.html" target="_blank">Privacy Policy</a> |
-      <a href="/auth/terms.html" target="_blank">Terms of Service</a> |
-      <a href="/auth/cookie.html" target="_blank">Cookies</a>
-    </p>
-  </footer>
+      <section class="auth-section">
+        <h2 class="section-title">GET STARTED</h2>
+
+        <div class="auth-options btn-container">
+          <a href="/oauth/login" class="auth-card card-google btn">
+            <div class="card-text">
+              <h3>🔐 Continue with Google</h3>
+              <p>Recommended • OAuth 2.0 sign-in</p>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+
+          <a href="/auth/login-form.html" class="auth-card card-login btn">
+            <div class="card-text">
+              <h3>✉️ Existing Account Login</h3>
+              <p>Use your email and password</p>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+
+          <a href="/auth/register-form.html" class="auth-card card-signup btn">
+            <div class="card-text">
+              <h3>📝 Create Free Account</h3>
+              <p>Free • takes under a minute</p>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <div class="notice-box">
+          <span class="lock-icon">🛡️</span>
+          <p>
+            We request <code class="code-badge">youtube.readonly</code>
+            permission only to access your subscriptions securely. YouTufy never
+            posts, deletes, or modifies your data.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>
+        <span>&copy; 2025 YouTufy</span>
+        <span class="footer-links">
+          <a href="/auth/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a> |
+          <a href="/auth/terms.html" target="_blank" rel="noopener noreferrer">Terms of Service</a> |
+          <a href="/auth/cookie.html" target="_blank" rel="noopener noreferrer">Cookies</a>
+        </span>
+      </p>
+    </footer>
+  </div>
 </body>
 </html>

@@ -2,19 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Reset Your Password</title>
+  <title>Reset Your Password – YouTufy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
   <link rel="stylesheet" href="/static/style.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet"
+  />
 </head>
+
 <body>
-  <header><h1>🔐 Reset Password</h1></header>
-  <main class="container">
-    <form method="post" action="/auth/verify-token.html">
-      <input type="hidden" name="token" value="{{ request.query_params['token'] }}">
-      <label>New Password:</label><br>
-      <input type="password" name="new_password" required><br><br>
-      <button class="btn" type="submit" style="background: yellow;">🔁 Reset Password</button>
-    </form>
-  </main>
+  <div class="app-container auth-page">
+    <header class="app-header">
+      <div class="logo-area">
+        <img
+          src="/static/logo.jpeg"
+          alt="YouTufy Logo"
+          class="logo-img"
+          onerror="this.style.display='none';"
+        />
+        <span class="logo-text">YouTufy</span>
+      </div>
+
+      <div class="badge-area">
+        <span class="badge">🔐 Secure Reset</span>
+      </div>
+    </header>
+
+    <main class="auth-page-content">
+      <section class="auth-form-card">
+        <p class="tagline">ACCOUNT SECURITY</p>
+        <h1>Reset Your Password</h1>
+
+        <form method="post" action="/auth/verify-token.html" class="form">
+          <input
+            type="hidden"
+            name="token"
+            value="{{ request.query_params['token'] }}"
+          />
+
+          <label for="new_password">New Password</label>
+          <input
+            type="password"
+            id="new_password"
+            name="new_password"
+            required
+          />
+
+          <button class="btn form-submit-btn form-submit-warning" type="submit">
+            🔁 Reset Password
+          </button>
+        </form>
+
+        <div class="form-helper">
+          <p>
+            <a href="/auth/login-form.html">← Back to Login</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>
+        <span>&copy; 2025 YouTufy</span>
+        <span class="footer-links">
+          <a href="/auth/privacy.html">Privacy</a> |
+          <a href="/auth/terms.html">Terms</a> |
+          <a href="/auth/cookie.html">Cookies</a>
+        </span>
+      </p>
+    </footer>
+  </div>
 </body>
 </html>
-

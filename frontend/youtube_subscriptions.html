@@ -1,31 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>YouTufy Subscriptions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/style.css">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet"
+  />
 </head>
+
 <body>
-  <header>
-    <h1>📺 YouTufy Subscriptions</h1>
-    <p class="tagline" id="userEmail">Welcome, loading...</p>
-  </header>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <img
+          src="/favicon.ico"
+          alt="YouTufy Logo"
+          class="logo-img"
+          onerror="this.style.display='none';"
+        />
+        <span class="logo-text">YouTufy</span>
+      </div>
 
-  <main class="container">
-    <div class="grid" id="subscriptionsContainer">
-      <p>📡 Loading your subscriptions...</p>
-    </div>
-  </main>
+      <div class="badge-area">
+        <span class="badge" id="userEmail">
+          📺 Subscriptions loading...
+        </span>
+      </div>
+    </header>
 
-  <footer>
-    <p>
-      © 2025 YouTufy |
-      <a href="https://api.youtufy.com/auth/privacy.html">Privacy</a> |
-      <a href="https://api.youtufy.com/auth/terms.html">Terms</a>
-    </p>
-  </footer>
+    <main class="main-content subscriptions-main">
+      <section class="hero-section">
+        <p class="tagline">YOUR SUBSCRIPTIONS</p>
+
+        <h1 class="main-heading">
+          Loading your <br />
+          <span class="highlight-text">channel universe.</span>
+        </h1>
+
+        <div class="hero-description-block">
+          <h2>Please wait</h2>
+          <p>
+            YouTufy is securely loading your YouTube subscriptions.
+          </p>
+        </div>
+      </section>
+
+      <section class="auth-section subscriptions-panel">
+        <h2 class="section-title">STATUS</h2>
+
+        <div id="subscriptionsContainer">
+          <p>📡 Loading your subscriptions...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>
+        <span>&copy; 2025 YouTufy</span>
+        <span class="footer-links">
+          <a href="https://api.youtufy.com/auth/privacy.html">Privacy</a> |
+          <a href="https://api.youtufy.com/auth/terms.html">Terms</a>
+        </span>
+      </p>
+    </footer>
+  </div>
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
