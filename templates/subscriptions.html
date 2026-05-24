@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <div class="app-container">
+  <div class="app-container subscriptions-page">
     <header class="app-header">
       <div class="logo-area">
         <img
@@ -36,14 +36,21 @@
       </div>
     </header>
 
-    <main class="main-content subscriptions-main">
-      <section class="auth-section subscriptions-panel">
-        <h1 class="section-title">YOUR SUBSCRIPTIONS</h1>
+    <main class="subscriptions-main">
+      <section class="subscriptions-panel">
+        <div class="subscriptions-heading">
+          <p class="tagline">YOUR SUBSCRIPTIONS</p>
+          <h1>Your channel universe</h1>
+          <p>
+            Your subscribed YouTube channels, stats, latest uploads, and quick
+            channel links in one clean master view.
+          </p>
+        </div>
 
         {% if subscriptions %}
-          <div class="grid">
+          <div class="subscriptions-grid">
             {% for sub in subscriptions %}
-              <article class="card">
+              <article class="subscription-card">
                 <h3>{{ sub.snippet.title }}</h3>
 
                 <img
@@ -59,12 +66,12 @@
                   <li>🎬 Videos: {{ sub.statistics.videoCount }}</li>
 
                   {% if sub.latestVideoDate %}
-                    <li>📅 Last Upload: {{ sub.latestVideoDate[:10] }}</li>
+                    <li>🗓️ Last Upload: {{ sub.latestVideoDate[:10] }}</li>
                   {% endif %}
                 </ul>
 
                 <a
-                  class="btn google-btn"
+                  class="channel-btn"
                   href="{{ sub.channelUrl }}"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -89,6 +96,7 @@
         <span class="footer-links">
           <a href="/auth/privacy.html">Privacy</a> |
           <a href="/auth/terms.html">Terms</a> |
+          <a href="/auth/cookie.html">Cookies</a> |
           <a href="https://www.youtufy.com" target="_blank" rel="noopener noreferrer">Homepage</a>
         </span>
       </p>
