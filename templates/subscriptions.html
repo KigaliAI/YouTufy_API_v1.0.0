@@ -18,23 +18,25 @@
 
 <body>
   <div class="app-container subscriptions-page">
-
-    <!-- HEADER -->
     <header class="app-header">
       <div class="logo-area">
-        <img src="/static/logo.jpeg" alt="YouTufy Logo" class="logo-img" />
+        <img
+          src="/static/logo.jpeg"
+          alt="YouTufy Logo"
+          class="logo-img"
+          onerror="this.style.display='none';"
+        />
         <span class="logo-text">YouTufy</span>
       </div>
 
       <div class="badge-area">
-        <span class="badge">📺 Welcome, {{ user_email }}</span>
+        <span class="badge">
+          📺 Welcome, {{ user_email }}
+        </span>
       </div>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main class="main-content">
-
-      <!-- HERO / TITLE BLOCK -->
       <section class="hero-section">
         <p class="tagline">YOUR SUBSCRIPTIONS, ORGANISED</p>
 
@@ -53,17 +55,17 @@
         </div>
       </section>
 
-      <!-- SUBSCRIPTIONS GRID -->
       <section class="subscriptions-grid-section">
         {% if subscriptions %}
           <div class="subscriptions-grid modern-grid">
             {% for sub in subscriptions %}
               <article class="subscription-card modern-card">
-
                 <img
                   src="{{ sub.snippet.thumbnails.default.url }}"
                   alt="{{ sub.snippet.title }}"
                   class="channel-thumb"
+                  width="120"
+                  height="90"
                 />
 
                 <h3 class="channel-title">{{ sub.snippet.title }}</h3>
@@ -86,11 +88,9 @@
                 >
                   Visit Channel →
                 </a>
-
               </article>
             {% endfor %}
           </div>
-
         {% else %}
           <div class="notice-box">
             <span class="lock-icon">ℹ️</span>
@@ -98,10 +98,8 @@
           </div>
         {% endif %}
       </section>
-
     </main>
 
-    <!-- FOOTER -->
     <footer class="app-footer">
       <p>
         <span>&copy; 2025 YouTufy</span>
@@ -109,11 +107,16 @@
           <a href="/auth/privacy.html">Privacy</a> |
           <a href="/auth/terms.html">Terms</a> |
           <a href="/auth/cookie.html">Cookies</a> |
-          <a href="https://www.youtufy.com" target="_blank">Homepage</a>
+          <a
+            href="https://www.youtufy.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Homepage
+          </a>
         </span>
       </p>
     </footer>
-
   </div>
 </body>
 </html>

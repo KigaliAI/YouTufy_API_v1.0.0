@@ -59,8 +59,8 @@ body {
   width: 100%;
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  overflow: hidden;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: visible;
 }
 
 .app-header {
@@ -133,7 +133,7 @@ body {
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   gap: clamp(28px, 5vw, 72px);
   align-items: center;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .hero-section {
@@ -542,93 +542,97 @@ body {
 }
 
 /* ==========================================================
-   SUBSCRIPTIONS PAGE
-   Dedicated classes only. Avoids affecting landing/auth pages.
+   SUBSCRIPTIONS PAGE — MODERN DASHBOARD
+   Scoped only to templates/subscriptions.html
 ========================================================== */
 
 .subscriptions-page {
   min-height: 100vh;
+  overflow: visible;
 }
 
-.subscriptions-main {
-  min-height: 0;
-  width: 100%;
-  padding: clamp(20px, 5vw, 64px);
-  overflow-y: auto;
+.subscriptions-page .main-content {
+  align-items: start;
+  grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.6fr);
+  gap: clamp(28px, 5vw, 72px);
+  overflow: visible;
 }
 
-.subscriptions-panel {
+.subscriptions-page .hero-section {
+  max-width: 680px;
+}
+
+.subscriptions-grid-section {
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: clamp(20px, 4vw, 40px);
-  background: rgba(17, 24, 38, 0.88);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 28px;
-  box-shadow: 0 16px 40px #0008;
+  min-width: 0;
+  max-width: none;
+  justify-self: stretch;
+  align-self: start;
+  padding: clamp(20px, 4vw, 32px);
+  background: var(--card-glass);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(10px);
 }
 
-.subscriptions-heading {
-  margin-bottom: 28px;
+.subscriptions-grid-section .notice-box {
+  margin-top: 0;
 }
 
-.subscriptions-heading h1 {
-  margin: 0 0 10px;
-  color: var(--text-main);
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1;
-  letter-spacing: -0.05em;
-}
-
-.subscriptions-heading p {
-  max-width: 760px;
-  margin: 0;
-  color: var(--text-soft);
-  font-size: 1.05rem;
-}
-
-.subscriptions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+.subscriptions-grid,
+.modern-grid {
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  align-items: stretch;
 }
 
-.subscription-card {
+.subscription-card,
+.modern-card {
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 20px;
-  background: rgba(16, 19, 26, 0.9);
+  padding: 18px;
+  background: rgba(16, 19, 26, 0.92);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  overflow-wrap: anywhere;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.subscription-card:hover {
+.subscription-card:hover,
+.modern-card:hover {
   transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.16);
   box-shadow: 0 14px 34px rgba(0,0,0,0.5);
 }
 
-.subscription-card h3 {
-  margin: 0;
-  color: #fff;
-  font-size: 1.08rem;
-  line-height: 1.25;
-}
-
-.subscription-card img {
+.channel-thumb {
   width: 120px;
   height: 90px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
-.subscription-card ul {
+.channel-title {
+  margin: 0;
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.channel-stats {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -636,13 +640,15 @@ body {
   gap: 6px;
 }
 
-.subscription-card li {
+.channel-stats li {
   color: #d3d3d3;
   font-size: 0.95rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
-.channel-btn {
+.channel-btn,
+.modern-btn {
   margin-top: auto;
   display: inline-flex;
   justify-content: center;
@@ -658,7 +664,9 @@ body {
 }
 
 .channel-btn:hover,
-.channel-btn:focus {
+.channel-btn:focus,
+.modern-btn:hover,
+.modern-btn:focus {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
   filter: brightness(1.05);
@@ -757,12 +765,79 @@ body {
 }
 
 /* ==========================================================
+   SHORT VIEWPORT PROTECTION
+========================================================== */
+
+@media (max-height: 760px) and (min-width: 901px) {
+  .app-header {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .main-content {
+    padding-top: 28px;
+    padding-bottom: 28px;
+    align-items: start;
+  }
+
+  .main-heading {
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  }
+
+  .hero-description-block {
+    margin-top: 28px;
+  }
+
+  .auth-card {
+    min-height: 78px;
+    padding: 15px 18px;
+  }
+
+  .notice-box {
+    padding: 14px;
+  }
+
+  .app-footer {
+    padding-top: 12px;
+    padding-bottom: 16px;
+  }
+}
+
+/* ==========================================================
    RESPONSIVE
 ========================================================== */
 
 @media (min-width: 1280px) {
-  .subscriptions-grid {
+  .subscriptions-grid,
+  .modern-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1600px) {
+  .subscriptions-grid,
+  .modern-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .subscriptions-page .main-content {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .subscriptions-page .hero-section {
+    max-width: none;
+  }
+
+  .subscriptions-grid-section {
+    width: 100%;
+  }
+
+  .subscriptions-grid,
+  .modern-grid {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   }
 }
 
@@ -774,6 +849,7 @@ body {
   .main-content {
     grid-template-columns: 1fr;
     align-items: start;
+    overflow: visible;
   }
 
   .auth-section {
@@ -783,14 +859,6 @@ body {
 
   .main-heading {
     font-size: clamp(3.2rem, 14vw, 6rem);
-  }
-
-  .subscriptions-main {
-    padding: 24px;
-  }
-
-  .subscriptions-grid {
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   }
 }
 
@@ -810,12 +878,18 @@ body {
     padding: 20px;
   }
 
+  .main-heading {
+    font-size: clamp(3rem, 18vw, 4.8rem);
+    letter-spacing: -0.06em;
+  }
+
   .hero-description-block {
     padding: 18px;
   }
 
   .auth-section,
-  .auth-form-card {
+  .auth-form-card,
+  .subscriptions-grid-section {
     padding: 20px;
     border-radius: 22px;
   }
@@ -825,17 +899,14 @@ body {
     padding: 16px;
   }
 
-  .subscriptions-main {
-    padding: 20px;
-  }
-
-  .subscriptions-panel {
-    padding: 20px;
-    border-radius: 22px;
-  }
-
-  .subscriptions-grid {
+  .subscriptions-grid,
+  .modern-grid {
     grid-template-columns: 1fr;
+  }
+
+  .channel-thumb {
+    width: 120px;
+    height: 90px;
   }
 
   .app-footer p {
@@ -847,3 +918,4 @@ body {
     flex-wrap: wrap;
   }
 }
+
