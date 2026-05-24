@@ -18,49 +18,57 @@
 
 <body>
   <div class="app-container subscriptions-page">
+
+    <!-- HEADER -->
     <header class="app-header">
       <div class="logo-area">
-        <img
-          src="/static/logo.jpeg"
-          alt="YouTufy Logo"
-          class="logo-img"
-          onerror="this.style.display='none';"
-        />
+        <img src="/static/logo.jpeg" alt="YouTufy Logo" class="logo-img" />
         <span class="logo-text">YouTufy</span>
       </div>
 
       <div class="badge-area">
-        <span class="badge">
-          📺 Welcome, {{ user_email }}
-        </span>
+        <span class="badge">📺 Welcome, {{ user_email }}</span>
       </div>
     </header>
 
-    <main class="subscriptions-main">
-      <section class="subscriptions-panel">
-        <div class="subscriptions-heading">
-          <p class="tagline">YOUR SUBSCRIPTIONS</p>
-          <h1>Your channel universe</h1>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- HERO / TITLE BLOCK -->
+      <section class="hero-section">
+        <p class="tagline">YOUR SUBSCRIPTIONS, ORGANISED</p>
+
+        <h1 class="main-heading">
+          Your <br />
+          <span class="highlight-text">channel universe.</span>
+        </h1>
+
+        <div class="hero-description-block">
+          <h2>Your YouTube network</h2>
           <p>
-            Your subscribed YouTube channels, stats, latest uploads, and quick
-            channel links in one clean master view.
+            Your subscribed channels, their stats, latest uploads, and quick
+            access links — all consolidated into one beautifully structured,
+            modern dashboard.
           </p>
         </div>
+      </section>
 
+      <!-- SUBSCRIPTIONS GRID -->
+      <section class="subscriptions-grid-section">
         {% if subscriptions %}
-          <div class="subscriptions-grid">
+          <div class="subscriptions-grid modern-grid">
             {% for sub in subscriptions %}
-              <article class="subscription-card">
-                <h3>{{ sub.snippet.title }}</h3>
+              <article class="subscription-card modern-card">
 
                 <img
                   src="{{ sub.snippet.thumbnails.default.url }}"
                   alt="{{ sub.snippet.title }}"
-                  width="120"
-                  height="90"
+                  class="channel-thumb"
                 />
 
-                <ul>
+                <h3 class="channel-title">{{ sub.snippet.title }}</h3>
+
+                <ul class="channel-stats">
                   <li>👁️ Views: {{ sub.statistics.viewCount }}</li>
                   <li>👥 Subscribers: {{ sub.statistics.subscriberCount }}</li>
                   <li>🎬 Videos: {{ sub.statistics.videoCount }}</li>
@@ -71,16 +79,18 @@
                 </ul>
 
                 <a
-                  class="channel-btn"
+                  class="channel-btn modern-btn"
                   href="{{ sub.channelUrl }}"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Visit Channel
+                  Visit Channel →
                 </a>
+
               </article>
             {% endfor %}
           </div>
+
         {% else %}
           <div class="notice-box">
             <span class="lock-icon">ℹ️</span>
@@ -88,8 +98,10 @@
           </div>
         {% endif %}
       </section>
+
     </main>
 
+    <!-- FOOTER -->
     <footer class="app-footer">
       <p>
         <span>&copy; 2025 YouTufy</span>
@@ -97,10 +109,11 @@
           <a href="/auth/privacy.html">Privacy</a> |
           <a href="/auth/terms.html">Terms</a> |
           <a href="/auth/cookie.html">Cookies</a> |
-          <a href="https://www.youtufy.com" target="_blank" rel="noopener noreferrer">Homepage</a>
+          <a href="https://www.youtufy.com" target="_blank">Homepage</a>
         </span>
       </p>
     </footer>
+
   </div>
 </body>
 </html>
