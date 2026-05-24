@@ -52,20 +52,53 @@ body {
 }
 
 /* ==========================================================
-   NR2 APP SHELL
+   HYBRID LAYOUT SYSTEM (CSS2 visuals + CSS1 structure)
 ========================================================== */
 
 .app-container {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 5vw, 64px);
 }
+
+.main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-container {
+    padding: 20px;
+  }
+
+  .main-content {
+    gap: 32px;
+  }
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
 
 .app-header {
   width: 100%;
-  padding: 24px clamp(20px, 5vw, 64px);
+  padding-bottom: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -102,7 +135,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  max-width: 100%;
   padding: 10px 14px;
   border: 1px solid var(--border-soft);
   border-radius: 999px;
@@ -122,19 +154,8 @@ body {
 }
 
 /* ==========================================================
-   LANDING PAGE
+   HERO SECTION
 ========================================================== */
-
-.main-content {
-  min-height: 0;
-  width: 100%;
-  padding: clamp(20px, 5vw, 64px);
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-  gap: clamp(28px, 5vw, 72px);
-  align-items: center;
-  overflow-y: auto;
-}
 
 .hero-section {
   max-width: 760px;
@@ -188,6 +209,10 @@ body {
   font-size: 1.05rem;
 }
 
+/* ==========================================================
+   AUTH SECTION
+========================================================== */
+
 .auth-section {
   width: 100%;
   max-width: 520px;
@@ -214,11 +239,6 @@ body {
   gap: 14px;
 }
 
-.auth-card,
-.btn {
-  text-decoration: none;
-}
-
 .auth-card {
   min-height: 92px;
   display: flex;
@@ -229,6 +249,7 @@ body {
   border-radius: var(--radius-lg);
   color: #fff;
   box-shadow: var(--shadow-soft);
+  text-decoration: none;
   transition:
     transform 0.12s ease,
     box-shadow 0.12s ease,
@@ -242,10 +263,6 @@ body {
   filter: brightness(1.04);
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
-}
-
-.auth-card:active {
-  transform: translateY(0);
 }
 
 .card-google {
@@ -317,302 +334,11 @@ body {
 }
 
 /* ==========================================================
-   AUTH FORM PAGES
-========================================================== */
-
-.auth-page {
-  min-height: 100vh;
-}
-
-.auth-page-content {
-  min-height: 0;
-  width: 100%;
-  padding: clamp(20px, 5vw, 64px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-}
-
-.auth-form-card {
-  width: 100%;
-  max-width: 520px;
-  padding: clamp(24px, 5vw, 40px);
-  background: var(--card-glass);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  color: var(--text-main);
-}
-
-.auth-form-card h1 {
-  margin: 0 0 24px;
-  color: var(--text-main);
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.form {
-  display: grid;
-  gap: 12px;
-}
-
-.form label {
-  color: var(--text-soft);
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.form input {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  color: var(--text-main);
-  font: inherit;
-  outline: none;
-}
-
-.form input:focus {
-  border-color: var(--focus-ring);
-  box-shadow: 0 0 0 3px rgba(96,165,250,0.22);
-}
-
-.form-submit-btn,
-.google-btn {
-  margin-top: 12px;
-  display: block;
-  width: 100%;
-  padding: 14px 16px;
-  border: 0;
-  border-radius: var(--radius-lg);
-  background: var(--btn-login);
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.05rem;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: var(--shadow-soft);
-}
-
-.google-btn {
-  background: var(--btn-google);
-}
-
-.form-submit-warning {
-  background: var(--btn-register);
-  color: #111;
-}
-
-.form-submit-btn:hover,
-.form-submit-btn:focus,
-.google-btn:hover,
-.google-btn:focus {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-  filter: brightness(1.05);
-}
-
-.form-helper {
-  margin-top: 1.5rem;
-}
-
-.form-helper p {
-  margin: 0;
-  color: var(--text-soft);
-}
-
-.form-helper a,
-.auth-form-card a {
-  color: var(--btn-login);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.form-helper a:hover,
-.form-helper a:focus,
-.auth-form-card a:hover,
-.auth-form-card a:focus {
-  text-decoration: underline;
-}
-
-.form-divider {
-  height: 1px;
-  margin: 2rem 0;
-  background: rgba(255,255,255,0.14);
-}
-
-.oauth-title {
-  margin: 0 0 12px;
-  color: var(--text-main);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.status-copy {
-  display: grid;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.status-copy p {
-  margin: 0;
-  color: var(--text-soft);
-  font-size: 1.05rem;
-}
-
-.single-action {
-  margin-top: 20px;
-}
-
-/* ==========================================================
-   LEGAL / POLICY PAGES
-========================================================== */
-
-.legal-page {
-  min-height: 100vh;
-}
-
-.legal-content {
-  min-height: 0;
-  width: 100%;
-  padding: clamp(20px, 5vw, 64px);
-  overflow-y: auto;
-}
-
-.legal-card {
-  width: 100%;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: clamp(24px, 5vw, 48px);
-  background: var(--card-glass);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
-  color: var(--text-main);
-}
-
-.legal-card h1 {
-  margin: 0 0 18px;
-  color: var(--text-main);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1;
-}
-
-.legal-card h2 {
-  margin: 28px 0 10px;
-  color: var(--btn-register);
-  font-size: 1.25rem;
-}
-
-.legal-card p,
-.legal-card li {
-  color: var(--text-soft);
-  font-size: 1.05rem;
-}
-
-.legal-card ul {
-  padding-left: 1.25rem;
-}
-
-.legal-card a {
-  color: var(--btn-login);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.legal-card a:hover,
-.legal-card a:focus {
-  text-decoration: underline;
-}
-
-.last-updated {
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.legal-divider {
-  border: 0;
-  height: 1px;
-  background: rgba(255,255,255,0.14);
-  margin: 28px 0;
-}
-
-/* ==========================================================
-   SUBSCRIPTIONS PAGE SUPPORT
-========================================================== */
-
-.subscriptions-main {
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-}
-
-.subscriptions-panel {
-  width: 100%;
-  max-width: 1200px;
-  justify-self: stretch;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-}
-
-.card {
-  background: rgba(16, 19, 26, 0.85);
-  backdrop-filter: blur(4px);
-  border-radius: 12px;
-  padding: 1.2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
-}
-
-.card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 0.6rem;
-}
-
-.card img {
-  display: block;
-  margin: 0 auto 1rem;
-  border-radius: 4px;
-}
-
-.card ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.card ul li {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #d3d3d3;
-  opacity: 0.95;
-}
-
-.card .btn {
-  margin-top: 1rem;
-}
-
-/* ==========================================================
    FOOTER
 ========================================================== */
 
 .app-footer {
-  padding: 18px clamp(20px, 5vw, 64px) 24px;
+  padding: 18px 0 24px;
   color: var(--text-muted);
 }
 
@@ -641,69 +367,4 @@ body {
 .app-footer a:focus {
   color: var(--btn-register);
   text-decoration: underline;
-}
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-
-@media (max-width: 900px) {
-  .app-container {
-    overflow: visible;
-  }
-
-  .main-content {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .auth-section {
-    max-width: none;
-    justify-self: stretch;
-  }
-
-  .main-heading {
-    font-size: clamp(3.2rem, 14vw, 6rem);
-  }
-}
-
-@media (max-width: 640px) {
-  .app-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .badge {
-    border-radius: var(--radius-lg);
-  }
-
-  .main-content,
-  .auth-page-content,
-  .legal-content {
-    padding: 20px;
-  }
-
-  .hero-description-block {
-    padding: 18px;
-  }
-
-  .auth-section,
-  .auth-form-card {
-    padding: 20px;
-    border-radius: 22px;
-  }
-
-  .auth-card {
-    min-height: 84px;
-    padding: 16px;
-  }
-
-  .app-footer p {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer-links {
-    flex-wrap: wrap;
-  }
 }
