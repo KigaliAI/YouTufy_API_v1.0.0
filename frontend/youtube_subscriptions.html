@@ -5,8 +5,8 @@
   <title>YouTufy Subscriptions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="stylesheet" href="/style.css" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,14 +31,14 @@
 
       <div class="badge-area">
         <span class="badge" id="userEmail">
-          📺 Subscriptions loading...
+          🔒 OAuth-protected · <code>youtube.readonly</code> scope only
         </span>
       </div>
     </header>
 
     <main class="main-content subscriptions-main">
       <section class="hero-section">
-        <p class="tagline">YOUR SUBSCRIPTIONS</p>
+        <p class="tagline">YOUR SUBSCRIPTIONS, ORGANISED</p>
 
         <h1 class="main-heading">
           Loading your <br />
@@ -48,7 +48,9 @@
         <div class="hero-description-block">
           <h2>Please wait</h2>
           <p>
-            YouTufy is securely loading your YouTube subscriptions.
+            YouTufy is securely loading your YouTube subscriptions network,
+            consolidating your media diet into one beautifully organized,
+            clean master view.
           </p>
         </div>
       </section>
@@ -67,7 +69,8 @@
         <span>&copy; 2025 YouTufy</span>
         <span class="footer-links">
           <a href="https://api.youtufy.com/auth/privacy.html">Privacy</a> |
-          <a href="https://api.youtufy.com/auth/terms.html">Terms</a>
+          <a href="https://api.youtufy.com/auth/terms.html">Terms</a> |
+          <a href="https://api.youtufy.com/auth/cookie.html">Cookies</a>
         </span>
       </p>
     </footer>
@@ -76,19 +79,31 @@
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
+    const subscriptionsContainer = document.getElementById("subscriptionsContainer");
 
     if (!token) {
-      document.getElementById("subscriptionsContainer").innerHTML =
+      subscriptionsContainer.innerHTML =
         "<p>❌ No token provided. Please log in again.</p>";
     } else {
-      fetch("https://api.youtufy.com/youtube/subscriptions?token=" + token)
-        .then(res => res.text())
+      fetch(
+        "https://api.youtufy.com/youtube/subscriptions?token=" +
+        encodeURIComponent(token)
+      )
+        .then(res => {
+          if (!res.ok) {
+            throw new Error("Request failed with status " + res.status);
+          }
+
+          return res.text();
+        })
         .then(html => {
-          document.documentElement.innerHTML = html;
+          document.open();
+          document.write(html);
+          document.close();
         })
         .catch(err => {
           console.error("⚠️ Failed to load subscriptions:", err);
-          document.getElementById("subscriptionsContainer").innerHTML =
+          subscriptionsContainer.innerHTML =
             "<p>❌ Error loading subscriptions. Please try again.</p>";
         });
     }
