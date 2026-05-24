@@ -36,30 +36,21 @@
       </div>
     </header>
 
-    <main class="main-content">
-      <section class="hero-section">
-        <p class="tagline">YOUR SUBSCRIPTIONS, ORGANISED</p>
-
-        <h1 class="main-heading">
-          Your <br />
-          <span class="highlight-text">channel universe.</span>
-        </h1>
-
-        <div class="hero-description-block">
-          <h2>Your YouTube network</h2>
+    <main class="subscriptions-main">
+      <section class="subscriptions-panel">
+        <div class="subscriptions-heading">
+          <p class="tagline">YOUR SUBSCRIPTIONS, ORGANISED</p>
+          <h1>Your channel universe</h1>
           <p>
-            Your subscribed channels, their stats, latest uploads, and quick
-            access links — all consolidated into one beautifully structured,
-            modern dashboard.
+            Your subscribed channels, stats, latest uploads, and quick access
+            links — all consolidated into one modern dashboard.
           </p>
         </div>
-      </section>
 
-      <section class="subscriptions-grid-section">
         {% if subscriptions %}
-          <div class="subscriptions-grid modern-grid">
+          <div class="subscriptions-grid">
             {% for sub in subscriptions %}
-              <article class="subscription-card modern-card">
+              <article class="subscription-card">
                 <img
                   src="{{ sub.snippet.thumbnails.default.url }}"
                   alt="{{ sub.snippet.title }}"
@@ -81,7 +72,7 @@
                 </ul>
 
                 <a
-                  class="channel-btn modern-btn"
+                  class="channel-btn"
                   href="{{ sub.channelUrl }}"
                   target="_blank"
                   rel="noopener noreferrer"

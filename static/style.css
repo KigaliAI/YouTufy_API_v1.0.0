@@ -25,6 +25,10 @@
   --font-display: "Playfair Display", Georgia, serif;
 }
 
+/* ==========================================================
+   BASE
+========================================================== */
+
 * {
   box-sizing: border-box;
 }
@@ -47,12 +51,16 @@ body {
   line-height: 1.45;
 }
 
+/* ==========================================================
+   NR2 APP SHELL
+========================================================== */
+
 .app-container {
   width: 100%;
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  overflow: hidden;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: visible;
 }
 
 .app-header {
@@ -113,6 +121,10 @@ body {
   font-size: 0.92em;
 }
 
+/* ==========================================================
+   LANDING PAGE
+========================================================== */
+
 .main-content {
   min-height: 0;
   width: 100%;
@@ -121,7 +133,7 @@ body {
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   gap: clamp(28px, 5vw, 72px);
   align-items: center;
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .hero-section {
@@ -303,6 +315,11 @@ body {
   color: var(--text-soft);
   font-size: 0.95rem;
 }
+
+/* ==========================================================
+   AUTH FORM PAGES
+========================================================== */
+
 .auth-page {
   min-height: 100vh;
 }
@@ -451,6 +468,10 @@ body {
   margin-top: 20px;
 }
 
+/* ==========================================================
+   LEGAL / POLICY PAGES
+========================================================== */
+
 .legal-page {
   min-height: 100vh;
 }
@@ -520,20 +541,31 @@ body {
   margin: 28px 0;
 }
 
+/* ==========================================================
+   SUBSCRIPTIONS PAGE — 4-COLUMN GRID DASHBOARD
+   Used by templates/subscriptions.html
+========================================================== */
+
 .subscriptions-page {
   min-height: 100vh;
+  overflow: visible;
+}
+
+.subscriptions-page.app-container,
+.subscriptions-page .app-container {
+  overflow: visible;
 }
 
 .subscriptions-main {
   min-height: 0;
   width: 100%;
   padding: clamp(20px, 5vw, 64px);
-  overflow-y: auto;
+  overflow: visible;
 }
 
 .subscriptions-panel {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1680px;
   margin: 0 auto;
   padding: clamp(20px, 4vw, 40px);
   background: rgba(17, 24, 38, 0.88);
@@ -544,7 +576,7 @@ body {
 }
 
 .subscriptions-heading {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .subscriptions-heading h1 {
@@ -556,53 +588,64 @@ body {
 }
 
 .subscriptions-heading p {
-  max-width: 760px;
+  max-width: 860px;
   margin: 0;
   color: var(--text-soft);
   font-size: 1.05rem;
 }
 
-/* FIXED 4-COLUMN GRID */
 .subscriptions-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2vw, 28px);
   width: 100%;
-  align-items: start;
+  align-items: stretch;
 }
 
 .subscription-card {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: clamp(22px, 3vw, 30px);
+  gap: 14px;
+  padding: clamp(18px, 2vw, 24px);
   background: var(--card-glass);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(10px);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  overflow-wrap: anywhere;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .subscription-card:hover {
   transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.16);
   box-shadow: 0 14px 34px rgba(0,0,0,0.5);
 }
 
-.subscription-card h3 {
-  margin: 12px 0 6px;
-  color: var(--text-main);
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
+.channel-thumb,
 .subscription-card img {
   width: 100%;
-  height: 180px;
+  height: 150px;
   object-fit: cover;
   border-radius: var(--radius-md);
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
+.channel-title,
+.subscription-card h3 {
+  margin: 4px 0 0;
+  color: var(--text-main);
+  font-size: 1.08rem;
+  line-height: 1.25;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.channel-stats,
 .subscription-card ul {
   margin: 0;
   padding: 0;
@@ -611,10 +654,12 @@ body {
   gap: 6px;
 }
 
+.channel-stats li,
 .subscription-card li {
   color: var(--text-soft);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .channel-btn {
@@ -622,7 +667,8 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 16px;
+  width: 100%;
+  padding: 12px 14px;
   border-radius: var(--radius-md);
   background: var(--btn-login);
   color: #fff;
@@ -642,42 +688,236 @@ body {
   outline-offset: 3px;
 }
 
-.footer {
+/* ==========================================================
+   LEGACY SUBSCRIPTION CARD SUPPORT
+   Keeps older .grid/.card markup usable if any route still returns it.
+========================================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
   width: 100%;
-  padding: 24px clamp(20px, 5vw, 64px);
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.2);
 }
 
-.footer a {
-  color: var(--btn-login);
+.card {
+  background: rgba(16, 19, 26, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+}
+
+.card h3 {
+  font-size: 1.25rem;
   font-weight: 700;
-  text-decoration: none;
+  color: #fff;
+  margin: 0 0 0.6rem;
 }
 
-.footer a:hover,
-.footer a:focus {
+.card img {
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 4px;
+}
+
+.card ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.card ul li {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d3d3d3;
+  opacity: 0.95;
+}
+
+.card .btn {
+  margin-top: 1rem;
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.app-footer {
+  padding: 18px clamp(20px, 5vw, 64px) 24px;
+  color: var(--text-muted);
+}
+
+.app-footer p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-footer a {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-footer a:hover,
+.app-footer a:focus {
+  color: var(--btn-register);
   text-decoration: underline;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
+/* ==========================================================
+   SHORT VIEWPORT PROTECTION
+========================================================== */
+
+@media (max-height: 760px) and (min-width: 901px) {
+  .app-header {
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  .main-content {
+    padding-top: 28px;
+    padding-bottom: 28px;
+    align-items: start;
+  }
+
+  .main-heading {
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  }
+
+  .hero-description-block {
+    margin-top: 28px;
+  }
+
+  .auth-card {
+    min-height: 78px;
+    padding: 15px 18px;
+  }
+
+  .notice-box {
+    padding: 14px;
+  }
+
+  .app-footer {
+    padding-top: 12px;
+    padding-bottom: 16px;
+  }
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1280px) {
   .subscriptions-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 900px) {
+  .app-container {
+    overflow: visible;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    align-items: start;
+    overflow: visible;
+  }
+
+  .auth-section {
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .main-heading {
+    font-size: clamp(3.2rem, 14vw, 6rem);
+  }
+
+  .subscriptions-main {
+    padding: 24px;
+  }
+
   .subscriptions-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 600px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .badge {
+    border-radius: var(--radius-lg);
+  }
+
+  .main-content,
+  .auth-page-content,
+  .legal-content {
+    padding: 20px;
+  }
+
+  .main-heading {
+    font-size: clamp(3rem, 18vw, 4.8rem);
+    letter-spacing: -0.06em;
+  }
+
+  .hero-description-block {
+    padding: 18px;
+  }
+
+  .auth-section,
+  .auth-form-card {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .auth-card {
+    min-height: 84px;
+    padding: 16px;
+  }
+
+  .subscriptions-main {
+    padding: 20px;
+  }
+
+  .subscriptions-panel {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
   .subscriptions-grid {
     grid-template-columns: 1fr;
+  }
+
+  .channel-thumb,
+  .subscription-card img {
+    height: 160px;
+  }
+
+  .app-footer p {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
   }
 }
