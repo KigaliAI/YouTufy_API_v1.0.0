@@ -25,10 +25,6 @@
   --font-display: "Playfair Display", Georgia, serif;
 }
 
-/* ==========================================================
-   BASE
-========================================================== */
-
 * {
   box-sizing: border-box;
 }
@@ -50,10 +46,6 @@ body {
   font-family: var(--font-stack);
   line-height: 1.45;
 }
-
-/* ==========================================================
-   NR2 APP SHELL
-========================================================== */
 
 .app-container {
   width: 100%;
@@ -120,10 +112,6 @@ body {
   border-radius: 7px;
   font-size: 0.92em;
 }
-
-/* ==========================================================
-   LANDING PAGE
-========================================================== */
 
 .main-content {
   min-height: 0;
@@ -315,11 +303,6 @@ body {
   color: var(--text-soft);
   font-size: 0.95rem;
 }
-
-/* ==========================================================
-   AUTH FORM PAGES
-========================================================== */
-
 .auth-page {
   min-height: 100vh;
 }
@@ -468,10 +451,6 @@ body {
   margin-top: 20px;
 }
 
-/* ==========================================================
-   LEGAL / POLICY PAGES
-========================================================== */
-
 .legal-page {
   min-height: 100vh;
 }
@@ -541,10 +520,6 @@ body {
   margin: 28px 0;
 }
 
-/* ==========================================================
-   SUBSCRIPTIONS PAGE (FINAL WITH FIX)
-========================================================== */
-
 .subscriptions-page {
   min-height: 100vh;
 }
@@ -587,11 +562,11 @@ body {
   font-size: 1.05rem;
 }
 
-/* ⭐ FIXED GRID — wider cards, full-width layout */
+/* FIXED 4-COLUMN GRID */
 .subscriptions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: clamp(28px, 4vw, 48px);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
   width: 100%;
   align-items: start;
 }
@@ -645,5 +620,64 @@ body {
 .channel-btn {
   margin-top: auto;
   display: inline-flex;
-  justify
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  background: var(--btn-login);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
 
+.channel-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.channel-btn:focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.footer {
+  width: 100%;
+  padding: 24px clamp(20px, 5vw, 64px);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.2);
+}
+
+.footer a {
+  color: var(--btn-login);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer a:hover,
+.footer a:focus {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .subscriptions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .subscriptions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .subscriptions-grid {
+    grid-template-columns: 1fr;
+  }
+}
