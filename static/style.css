@@ -542,8 +542,8 @@ body {
 }
 
 /* ==========================================================
-   SUBSCRIPTIONS PAGE — 4-COLUMN GRID DASHBOARD
-   Used by templates/subscriptions.html
+   SUBSCRIPTIONS PAGE — FORCE FULL-WIDTH 4-COLUMN GRID
+   Supports both old and new subscriptions templates.
 ========================================================== */
 
 .subscriptions-page {
@@ -551,22 +551,28 @@ body {
   overflow: visible;
 }
 
-.subscriptions-page.app-container,
-.subscriptions-page .app-container {
+.subscriptions-page.app-container {
   overflow: visible;
 }
 
+/* Stop subscriptions page from using the landing-page 2-column layout */
+.subscriptions-page .main-content,
 .subscriptions-main {
-  min-height: 0;
   width: 100%;
+  min-height: 0;
   padding: clamp(20px, 5vw, 64px);
+  display: block;
   overflow: visible;
 }
 
-.subscriptions-panel {
+/* Force the subscriptions panel to use the full viewport width */
+.subscriptions-page .subscriptions-panel,
+.subscriptions-page .auth-section.subscriptions-panel,
+.subscriptions-grid-section {
   width: 100%;
   max-width: 1680px;
   margin: 0 auto;
+  justify-self: stretch;
   padding: clamp(20px, 4vw, 40px);
   background: rgba(17, 24, 38, 0.88);
   border: 1px solid rgba(255,255,255,0.1);
@@ -575,6 +581,7 @@ body {
   backdrop-filter: blur(10px);
 }
 
+/* Heading */
 .subscriptions-heading {
   margin-bottom: 32px;
 }
@@ -594,15 +601,21 @@ body {
   font-size: 1.05rem;
 }
 
-.subscriptions-grid {
+/* Force both old .grid and new .subscriptions-grid into 4 columns */
+.subscriptions-page .grid,
+.subscriptions-grid,
+.modern-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(20px, 2vw, 28px);
-  width: 100%;
   align-items: stretch;
 }
 
-.subscription-card {
+/* Force both old .card and new .subscription-card to behave the same */
+.subscriptions-page .card,
+.subscription-card,
+.modern-card {
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -620,12 +633,16 @@ body {
     border-color 0.15s ease;
 }
 
-.subscription-card:hover {
+.subscriptions-page .card:hover,
+.subscription-card:hover,
+.modern-card:hover {
   transform: translateY(-3px);
   border-color: rgba(255,255,255,0.16);
   box-shadow: 0 14px 34px rgba(0,0,0,0.5);
 }
 
+/* Images */
+.subscriptions-page .card img,
 .channel-thumb,
 .subscription-card img {
   width: 100%;
@@ -635,6 +652,8 @@ body {
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
+/* Titles */
+.subscriptions-page .card h3,
 .channel-title,
 .subscription-card h3 {
   margin: 4px 0 0;
@@ -645,6 +664,8 @@ body {
   overflow-wrap: anywhere;
 }
 
+/* Stats */
+.subscriptions-page .card ul,
 .channel-stats,
 .subscription-card ul {
   margin: 0;
@@ -654,6 +675,7 @@ body {
   gap: 6px;
 }
 
+.subscriptions-page .card li,
 .channel-stats li,
 .subscription-card li {
   color: var(--text-soft);
@@ -662,6 +684,9 @@ body {
   overflow-wrap: anywhere;
 }
 
+/* Buttons / links */
+.subscriptions-page .card .btn,
+.subscriptions-page .card a,
 .channel-btn {
   margin-top: auto;
   display: inline-flex;
@@ -678,14 +703,68 @@ body {
   transition: filter 0.15s ease, transform 0.15s ease;
 }
 
+.subscriptions-page .card .btn:hover,
+.subscriptions-page .card a:hover,
 .channel-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
 }
 
+.subscriptions-page .card .btn:focus,
+.subscriptions-page .card a:focus,
 .channel-btn:focus {
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
+}
+
+/* Medium desktop / laptop */
+@media (max-width: 1280px) {
+  .subscriptions-page .grid,
+  .subscriptions-grid,
+  .modern-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .subscriptions-main,
+  .subscriptions-page .main-content {
+    padding: 24px;
+  }
+
+  .subscriptions-page .grid,
+  .subscriptions-grid,
+  .modern-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .subscriptions-main,
+  .subscriptions-page .main-content {
+    padding: 20px;
+  }
+
+  .subscriptions-page .subscriptions-panel,
+  .subscriptions-page .auth-section.subscriptions-panel,
+  .subscriptions-grid-section {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .subscriptions-page .grid,
+  .subscriptions-grid,
+  .modern-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .subscriptions-page .card img,
+  .channel-thumb,
+  .subscription-card img {
+    height: 160px;
+  }
 }
 
 /* ==========================================================
