@@ -542,234 +542,84 @@ body {
 }
 
 /* ==========================================================
-   SUBSCRIPTIONS PAGE — FORCE FULL-WIDTH 4-COLUMN GRID
-   Supports both old and new subscriptions templates.
+   FINAL SUBSCRIPTIONS MUST BE 4 COLUMNS
 ========================================================== */
 
-.subscriptions-page {
-  min-height: 100vh;
-  overflow: visible;
+body .app-container.subscriptions-page {
+  overflow: visible !important;
 }
 
-.subscriptions-page.app-container {
-  overflow: visible;
+body .app-container.subscriptions-page .subscriptions-main {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: clamp(20px, 5vw, 64px) !important;
+  overflow: visible !important;
 }
 
-/* Stop subscriptions page from using the landing-page 2-column layout */
-.subscriptions-page .main-content,
-.subscriptions-main {
-  width: 100%;
-  min-height: 0;
-  padding: clamp(20px, 5vw, 64px);
-  display: block;
-  overflow: visible;
+body .app-container.subscriptions-page .subscriptions-panel {
+  width: 100% !important;
+  max-width: 1680px !important;
+  margin: 0 auto !important;
 }
 
-/* Force the subscriptions panel to use the full viewport width */
-.subscriptions-page .subscriptions-panel,
-.subscriptions-page .auth-section.subscriptions-panel,
-.subscriptions-grid-section {
-  width: 100%;
-  max-width: 1680px;
-  margin: 0 auto;
-  justify-self: stretch;
-  padding: clamp(20px, 4vw, 40px);
-  background: rgba(17, 24, 38, 0.88);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 28px;
-  box-shadow: 0 16px 40px #0008;
-  backdrop-filter: blur(10px);
+body .app-container.subscriptions-page .subscriptions-grid {
+  display: grid !important;
+  width: 100% !important;
+  max-width: none !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: clamp(20px, 2vw, 28px) !important;
+  align-items: stretch !important;
 }
 
-/* Heading */
-.subscriptions-heading {
-  margin-bottom: 32px;
+body .app-container.subscriptions-page .subscription-card {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
 }
 
-.subscriptions-heading h1 {
-  margin: 0 0 10px;
-  color: var(--text-main);
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1;
-  letter-spacing: -0.05em;
+body .app-container.subscriptions-page .subscription-card img,
+body .app-container.subscriptions-page .channel-thumb {
+  width: 100% !important;
+  height: 150px !important;
+  object-fit: cover !important;
 }
 
-.subscriptions-heading p {
-  max-width: 860px;
-  margin: 0;
-  color: var(--text-soft);
-  font-size: 1.05rem;
-}
-
-/* Force both old .grid and new .subscriptions-grid into 4 columns */
-.subscriptions-page .grid,
-.subscriptions-grid,
-.modern-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(20px, 2vw, 28px);
-  align-items: stretch;
-}
-
-/* Force both old .card and new .subscription-card to behave the same */
-.subscriptions-page .card,
-.subscription-card,
-.modern-card {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: clamp(18px, 2vw, 24px);
-  background: var(--card-glass);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  backdrop-filter: blur(10px);
-  overflow-wrap: anywhere;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease;
-}
-
-.subscriptions-page .card:hover,
-.subscription-card:hover,
-.modern-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255,255,255,0.16);
-  box-shadow: 0 14px 34px rgba(0,0,0,0.5);
-}
-
-/* Images */
-.subscriptions-page .card img,
-.channel-thumb,
-.subscription-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
-}
-
-/* Titles */
-.subscriptions-page .card h3,
-.channel-title,
-.subscription-card h3 {
-  margin: 4px 0 0;
-  color: var(--text-main);
-  font-size: 1.08rem;
-  line-height: 1.25;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-/* Stats */
-.subscriptions-page .card ul,
-.channel-stats,
-.subscription-card ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 6px;
-}
-
-.subscriptions-page .card li,
-.channel-stats li,
-.subscription-card li {
-  color: var(--text-soft);
-  font-size: 0.92rem;
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
-/* Buttons / links */
-.subscriptions-page .card .btn,
-.subscriptions-page .card a,
-.channel-btn {
-  margin-top: auto;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: var(--radius-md);
-  background: var(--btn-login);
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-  box-shadow: var(--shadow-soft);
-  transition: filter 0.15s ease, transform 0.15s ease;
-}
-
-.subscriptions-page .card .btn:hover,
-.subscriptions-page .card a:hover,
-.channel-btn:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-}
-
-.subscriptions-page .card .btn:focus,
-.subscriptions-page .card a:focus,
-.channel-btn:focus {
-  outline: 2px solid var(--focus-ring);
-  outline-offset: 3px;
-}
-
-/* Medium desktop / laptop */
+/* Responsive fallback */
 @media (max-width: 1280px) {
-  .subscriptions-page .grid,
-  .subscriptions-grid,
-  .modern-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  body .app-container.subscriptions-page .subscriptions-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 }
 
-/* Tablet */
 @media (max-width: 900px) {
-  .subscriptions-main,
-  .subscriptions-page .main-content {
-    padding: 24px;
-  }
-
-  .subscriptions-page .grid,
-  .subscriptions-grid,
-  .modern-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  body .app-container.subscriptions-page .subscriptions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 
-/* Phone */
 @media (max-width: 600px) {
-  .subscriptions-main,
-  .subscriptions-page .main-content {
-    padding: 20px;
+  body .app-container.subscriptions-page .subscriptions-grid {
+    grid-template-columns: 1fr !important;
   }
+}
 
-  .subscriptions-page .subscriptions-panel,
-  .subscriptions-page .auth-section.subscriptions-panel,
-  .subscriptions-grid-section {
-    padding: 20px;
-    border-radius: 22px;
-  }
-
-  .subscriptions-page .grid,
-  .subscriptions-grid,
-  .modern-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .subscriptions-page .card img,
-  .channel-thumb,
-  .subscription-card img {
-    height: 160px;
-  }
+/* Visit Channel link text to white on subscriptions cards */
+.app-container.subscriptions-page .channel-btn,
+.app-container.subscriptions-page .channel-btn:link,
+.app-container.subscriptions-page .channel-btn:visited,
+.app-container.subscriptions-page .channel-btn:hover,
+.app-container.subscriptions-page .channel-btn:focus,
+.app-container.subscriptions-page .subscription-card a,
+.app-container.subscriptions-page .subscription-card a:link,
+.app-container.subscriptions-page .subscription-card a:visited,
+.app-container.subscriptions-page .subscription-card a:hover,
+.app-container.subscriptions-page .subscription-card a:focus {
+  color: #fff !important;
 }
 
 /* ==========================================================
    LEGACY SUBSCRIPTION CARD SUPPORT
-   Keeps older .grid/.card markup usable if any route still returns it.
 ========================================================== */
 
 .grid {
